@@ -2,7 +2,7 @@
 import { ArrowRight, CalendarDays, Check, ChevronDown, CircleHelp, Clock3, Compass, GraduationCap, LayoutDashboard, LoaderCircle, MapPin, Menu, Plus, Search, ShieldCheck, Ticket, Users, X, RefreshCw, Trash2, Pencil, Radio, Sparkles } from 'lucide-react';
 import './styles.css';
 
-const API = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/$/, '');
+const API = (import.meta.env.VITE_API_URL || 'https://campusconnect-o77v.onrender.com/api').replace(/\/$/, '');
 async function call(path, options = {}) {
   const response = await fetch(`${API}${path}`, { ...options, headers: { 'Content-Type': 'application/json', ...options.headers } });
   const data = response.status === 204 ? null : await response.json().catch(() => ({}));
