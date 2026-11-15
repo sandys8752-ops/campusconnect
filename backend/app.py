@@ -19,6 +19,7 @@ def cors(response):
     configured_origins = ",".join((
         os.environ.get("FRONTEND_ORIGIN", ""),
         os.environ.get("FRONTEND_ORIGINS", ""),
+        "https://campusconnect-1vsk.vercel.app",
         "https://campusconnect-u2le.vercel.app",
         "http://localhost:5173",
         "http://127.0.0.1:5173",
