@@ -15,8 +15,21 @@ supabase: Client = create_client(supabase_url, supabase_key)
 
 @app.after_request
 def cors(response):
-    origin = os.environ.get("FRONTEND_ORIGIN", "http://localhost:5173")
-    response.headers["Access-Control-Allow-Origin"] = origin
+    origin = request.headers.get("Origin")
+    configured_origins = ",".join((
+        os.environ.get("FRONTEND_ORIGIN", ""),
+        os.environ.get("FRONTEND_ORIGINS", ""),
+        "https://campusconnect-u2le.vercel.app",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ))
+    allowed_origins = {
+        value.strip().rstrip("/")
+        for value in configured_origins.split(",")
+        if value.strip()
+    }
+    if origin and origin.rstrip("/") in allowed_origins:
+        response.headers["Access-Control-Allow-Origin"] = origin
     response.headers["Access-Control-Allow-Headers"] = "Content-Type"
     response.headers["Access-Control-Allow-Methods"] = "GET, POST, PATCH, DELETE, OPTIONS"
     response.headers["Vary"] = "Origin"
